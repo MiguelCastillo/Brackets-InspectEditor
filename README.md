@@ -1,4 +1,4 @@
-Bracket-Inspect.EL
+Bracket-InspectEditor
 ================
 
-Quick toggle to enable/disable the ability to inspect editor elements in Developer Tools
+Quick toggle to enable/disable the ability to inspect the Editor's DOM in Developer Tools.
