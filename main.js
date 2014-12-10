@@ -16,7 +16,7 @@ define(function(require /*, exports, module*/) {
     var inspectRules = require('text!main.css');
     var $inspect = $("<style id='inspect'>").appendTo("head");
 
-    prefs.definePreference("enabled", "boolean", "false").on("change", function () {
+    prefs.definePreference("enabled", "boolean", false).on("change", function () {
         if (prefs.get('enabled') === true) {
             $inspect.text(inspectRules);
         }
