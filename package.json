@@ -2,7 +2,7 @@
     "title": "Enable Editor's DOM Inspection",
     "name": "inspect-editor-dom",
     "description": "Enable or Disable the ability to inspect the Editor's DOM in Chrome Developer Tools",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "author": "Miguel Castillo <manchagnu@gmail.com>",
     "homepage": "https://github.com/MiguelCastillo/Brackets-InspectEditor",
     "repository": {
