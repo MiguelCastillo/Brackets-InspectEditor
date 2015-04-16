@@ -13,34 +13,35 @@ define(function(require /*, exports, module*/) {
     var PreferencesManager = brackets.getModule("preferences/PreferencesManager");
     var PREFERENCES_KEY    = "brackets-inspect-editor-dom";
     var prefs              = PreferencesManager.getExtensionPrefs(PREFERENCES_KEY);
+    var COMMAND_ID         = PREFERENCES_KEY;
+    var menu               = Menus.getMenu(Menus.AppMenuBar.EDIT_MENU);
+    var command            = CommandManager.register("Inspect Editor DOM", COMMAND_ID, setEnabled);
     var inspectRules       = require("text!main.css");
     var $inspect           = $("<style id='inspect'>").appendTo("head");
 
-    prefs.definePreference("enabled", "boolean", false).on("change", function () {
-        if (prefs.get("enabled") === true) {
-            $inspect.text(inspectRules);
-        }
-        else {
-            $inspect.text("");
+
+    prefs.definePreference("enabled", "boolean", false).on("change", function() {
+        var value = prefs.get("enabled");
+        $inspect.text(value ? inspectRules : "");
+
+        if (value !== command.getChecked()) {
+            command.setChecked(value);
         }
     });
-
-    var COMMAND_ID = PREFERENCES_KEY;
-    var menu       = Menus.getMenu(Menus.AppMenuBar.EDIT_MENU);
-    var command    = CommandManager.register("Inspect Editor DOM", COMMAND_ID, setEnabled);
 
     menu.addMenuDivider();
     menu.addMenuItem(COMMAND_ID);
 
+
     function setEnabled() {
-        var enabled = !command.getChecked();
-        command.setChecked(enabled);
-        prefs.set("enabled", enabled);
+        prefs.set("enabled", !command.getChecked());
     }
 
 
-    // Set up the menu and callback for it
-    AppInit.appReady(function() {
+    function initialize() {
         command.setChecked(prefs.get("enabled"));
-    });
+    }
+
+
+    AppInit.appReady(initialize);
 });
